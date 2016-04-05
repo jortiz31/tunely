@@ -13,26 +13,51 @@ $(document).ready(function() {
     success: handleRecAllAlbums,
     error: handleError
   });
+  $("#album-form form").submit(function(event) {
+    event.preventDefault();
+    console.log($(this).serialize());
+    $(this).trigger('reset');
+
+    // $.ajax({
+    //   method: 'POST',
+    //   url: '/api/albums'
+    //   success: renderNewAlbum,
+    //   error: postError
+    // });
+  });
 });
 
 function handleRecAllAlbums(json) {
-  console.log(json);
+  // console.log(json);
   json.forEach(renderAlbum);
 }
 
-function handleError(e) {
+function handleError() {
+  console.log('uh oh');
+}
+
+function renderNewAlbum(json) {
+  console.log("shits working son");
+  // json.forEach(renderAlbum);
+
+}
+
+function postError() {
   console.log('uh oh');
 }
 
 // this function takes a single album and renders it to the page
 function renderAlbum(album) {
-  console.log('rendering album:', album);
+  // console.log('rendering album:', album);
   var source = $('#album-template').html();
   var templateFunc = Handlebars.compile(source);
   newHTML = templateFunc(album);
   $('#albums').prepend(newHTML);
-
 }
+
+
+
+
 
 
 
